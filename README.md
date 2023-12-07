@@ -1,4 +1,4 @@
-# Système de Gestion de Bibliothèque Simplifié
+# Système de Gestion de Bibliothèque
 
 Ce script Python implémente un système de gestion de bibliothèque simple avec les fonctionnalités suivantes :
 - Ajout et retrait de livres
@@ -23,10 +23,10 @@ Ce script Python implémente un système de gestion de bibliothèque simple avec
 2. Exécutez le script de test :
 
     ```bash
-    python test_library.py
+    python library_test.py
     ```
 
-    Assurez-vous que les fichiers `library.py` et `test_library.py` sont dans le même répertoire.
+    Assurez-vous que les fichiers `library.py` et `library_test.py` sont dans le même répertoire.
 
 ## Fonctionnalités
 
