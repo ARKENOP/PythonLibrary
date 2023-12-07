@@ -6,11 +6,27 @@ class Book:
         self.author = author
         self.category = category
         self.is_available = True
+    
+    # On convertit l'objet en dictionnaire pour pouvoir le sauvegarder dans un fichier JSON
+    def to_dict(self):
+        return {
+            "title": self.title,
+            "author": self.author,
+            "category": self.category,
+            "is_available": self.is_available
+        }
 
 class User:
     def __init__(self, name):
         self.name = name
         self.borrowed_books = []
+    
+    # Pareil que pour la classe Book
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "borrowed_books": [book.to_dict() for book in self.borrowed_books]
+        }
 
 # LibraryFactory pour créer des livres et des utilisateurs
 class LibraryFactory:
@@ -36,8 +52,8 @@ class LibraryDatabase:
     # On implémente le pattern State pour sauvegarder et charger l'état de la base de données
     def save_state(self):
         data = {
-            "books": [book.__dict__ for book in self.books],
-            "users": [user.__dict__ for user in self.users]
+            "books": [book.to_dict() for book in self.books],
+            "users": [user.to_dict() for user in self.users]
         }
         # On sauvegarde l'état de la base de données dans un fichier JSON
         with open("library_state.json", "w") as file:
@@ -139,3 +155,11 @@ class Library:
             print(f"Livre non emprunté par {user_name} : {book_title}")
         else:
             print(f"Utilisateur non trouvé : {user_name}")
+
+    def who_borrowed(self, book_title):
+        for user in self.database.users:
+            for book in user.borrowed_books:
+                if book.title == book_title:
+                    print(f"{book_title} a été emprunté par : {user.name}")
+                    return
+        print(f"Livre non emprunté : {book_title}")
